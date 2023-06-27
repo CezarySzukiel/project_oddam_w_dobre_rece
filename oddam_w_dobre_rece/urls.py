@@ -20,4 +20,5 @@ from oddam_w_dobre_rece import views
 
 urlpatterns = [
     path('', views.LandingPage.as_view(), name='index'),
+    path('adddonation/', views.AddDonation.as_view(), name='addDonation'),
 ]
