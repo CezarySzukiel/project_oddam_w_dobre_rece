@@ -45,13 +45,13 @@
     <section id="stats" class="stats">
       <div class="container container--85">
         <div class="stats--item">
-          <em>10</em>
+          <em>{{ total_quantity }}</em>
           <h3>Oddanych worków</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum tempora!</p>
         </div>
 
         <div class="stats--item">
-          <em>5</em>
+          <em>{{ total_supported_institutions }}</em>
           <h3>Wspartych organizacji</h3>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas quam.</p>
         </div>
@@ -85,7 +85,7 @@
         </div>
       </div>
 
-      <a href="#" class="btn btn--large">Załóż konto</a>
+      <a href="{% url 'register' %}" class="btn btn--large">Załóż konto</a>
     </section>
 
     <section id="about-us" class="about-us">
@@ -151,8 +151,7 @@
       <!-- SLIDE 2 -->
       <div class="help--slides" data-id="2">
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic officiis mollitia dolor, neque aspernatur accusamus debitis. Ducimus, officia. Quia, sunt illum! Non iste placeat ab ipsum alias
-          quos suscipit corporis!
+          W naszej bazie znajdziesz listę zweryfikowanych organizacji pozarządowych, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.
         </p>
         <ul class="help--slides-items">
           <li>
@@ -205,7 +204,7 @@
 
       <!-- SLIDE 3 -->
       <div class="help--slides" data-id="3">
-        <p>Lorem ipsum dolor sit amet, his ocurreret persequeris ea, ad utinam laudem duo. Verterem adipisci partiendo eos ne, ea his reque quaeque recteque, ne quo lobortis intellegam.</p>
+        <p>W naszej bazie znajdziesz listę zweryfikowanych zbiórek lokalnych, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
         <ul class="help--slides-items">
           <li>
             <div class="col">
