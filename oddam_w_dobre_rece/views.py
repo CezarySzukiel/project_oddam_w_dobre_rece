@@ -11,3 +11,18 @@ class LandingPage(View):
 class AddDonation(View):
     def get(self, request):
         return render(request, 'form.html')
+
+
+class Login(View):
+    def get(self, request):
+        return render(request, 'login.html')
+
+
+class Register(View):
+    def get(self, request):
+        return render(request, 'register.html')
+
+
+class FormConfirmation(View):
+    def get(self, request):
+        return render(request, 'form-confirmation.html')
