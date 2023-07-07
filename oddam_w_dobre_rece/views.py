@@ -1,11 +1,12 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegisterForm, LoginForm
 
-from oddam_w_dobre_rece.models import Donation, Institution
+from oddam_w_dobre_rece.models import Donation, Institution, Category
 
 
 # Create your views here.
@@ -20,9 +21,11 @@ class LandingPage(View):
         return render(request, 'index.html', context)
 
 
-class AddDonation(View):
+class AddDonation(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'form.html')
+        context = {'categories': Category.objects.all(),
+                   'institutions': Institution.objects.all()}
+        return render(request, 'form.html', context)
 
 
 class Login(View):
