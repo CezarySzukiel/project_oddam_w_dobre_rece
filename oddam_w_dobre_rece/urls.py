@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls.conf import include
+from oddam_w_dobre_rece import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('oddam_w_dobre_rece.urls')),
+    path('', views.LandingPage.as_view(), name='index'),
+    path('adddonation/', views.AddDonation.as_view(), name='addDonation'),
+    path('login/', views.Login.as_view(), name='login'),
+    path('logout/', views.Logout.as_view(), name='logout'),
+    path('register/', views.Register.as_view(), name='register'),
+    path('formconfirmation/', views.FormConfirmation.as_view(), name='formConfirmation'),
 ]

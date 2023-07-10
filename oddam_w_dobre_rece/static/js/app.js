@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(page);
     }
   }
+
   const helpSection = document.querySelector(".help");
   if (helpSection !== null) {
     new Help(helpSection);
@@ -136,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   }
+
   document.querySelectorAll(".form-group--dropdown select").forEach(el => {
     new FormSelect(el);
   });
@@ -143,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * Hide elements when clicked on document
    */
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const target = e.target;
     const tagName = target.tagName;
 
@@ -248,8 +250,44 @@ document.addEventListener("DOMContentLoaded", function() {
       this.updateForm();
     }
   }
+
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
   }
+
+  let categories = document.querySelectorAll('.category');
+  // for checked categories add class checked
+  for (let i = 0; i < categories.length; i++) {
+    let checkbox = categories[i].querySelector('.checkbox');
+    checkbox.addEventListener('click', function () {
+      let category = this.parentElement.querySelector('.description');
+      category.classList.toggle('checked');
+    });
+  }
+
+  let selected = []
+  const nextButton = document.getElementById('step-after-categories')
+  nextButton.addEventListener('click', function (){
+    // finds selected categories ids
+    let checks = document.getElementsByClassName('checked')
+     for (let i = 0; i < checks.length; i++) {
+      selected.push(checks[i].dataset.category)
+    }
+
+     //  finds ids of categories for each institution
+    let categoriesId = document.getElementsByClassName('title')
+    for (let i = 0; i < categoriesId.length; i++ )  {
+      let ids = categoriesId[i].dataset.categories
+      for (let j = 0; j < selected.length; j++) {
+        if (!(ids.includes(selected[j]))) {
+          let hidden = categoriesId[i].parentElement.parentElement.parentElement.parentElement
+          hidden.style.display = 'none'
+      }}
+    };
+  });
+
+
+
+
 });
