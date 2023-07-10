@@ -256,45 +256,24 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
-  let categories = document.querySelectorAll('.category');
-  // _________________niepotrzebne_____________________
-  // let categoriesCheckbox = document.querySelectorAll('.category .checkbox');
-  // let categoriesInput = document.querySelectorAll('.category input');
-// __________________________________________
-//   dla zaznaczonych dodaje klasę checked
-for (let i = 0; i < categories.length; i++) {
-  let checkbox = categories[i].querySelector('.checkbox');
-  checkbox.addEventListener('click', function () {
-    let category = this.parentElement.querySelector('.description');
-    category.classList.toggle('checked');
 
-  });
-}
-let selected = []
-const nextButton = document.getElementById('step-after-categories')
-  nextButton.addEventListener('click', function (){
-    let categoriesChecked = document.querySelectorAll('.checked')
-    console.log(categoriesChecked)
-    for (let i = 0; i < categoriesChecked.length; i++) { selected.push(categoriesChecked[i].innerText.replace(/[\n\s]/g, ''))
-    }
-  });
 
-  const institutions = document.querySelectorAll('.institution');
-  // console.log(institutions);
+  let selected = []
+  const nextButton = document.getElementById('step-after-categories')
+    nextButton.addEventListener('click', function (){
+    //   znajduje idiki kategorii dla każdej  instytucji
+    let categoriesId = document.getElementsByClassName('title')
+      for (let i = 0; i < categoriesId.length; i++ )  {
+        // console.log(categoriesId[i].dataset)
+      };
+    // console.log(categoriesId)
 
-for (let i = 0; i < institutions.length; i++) {
-  const institution = institutions[i];
-  const categories = institution.querySelector(".subtitle").textContent;
-  // console.log(categories)
-  // ___________________cos tu nie dziala__________________
-  for (let i = 0; i < categories.length; i++) {
-    let category = categories[i];
-    if (selected.includes(category)) {
-      console.log('znaleziono pasujace')
-    }
-  }
-//   ___________________________________________________________
-}
+
+    let categories = document.querySelectorAll('.category label .checkbox');
+    console.log(categories)
+
+    });
+
 
 
 

@@ -118,9 +118,10 @@
                         <input type="radio" name="organization" value="old" />
                         <span class="checkbox radio"></span>
                         <span class="description">
-                          <div class="title">{{ inst.type }} “{{ inst }}”</div>
+                          <div class="title" data-categories="{%for cat in inst.categories.all%}{{ cat.id }} {% endfor %}">{{ inst.type }} “{{ inst }}”</div>
+
                           <div class="subtitle">
-                            Cel i misja: {{ inst.description}} kategorie:{{ inst.categories.all }}
+                            Cel i misja: {{ inst.description}}
                           </div>
                         </span>
                       </label>
