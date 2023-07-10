@@ -257,14 +257,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   let categories = Array.from(document.querySelectorAll('.category'));
-  // for checked categories add class checked
-  // for (let i = 0; i < categories.length; i++) {
-  //   let checkbox = categories[i].querySelector('.checkbox');
-  //   checkbox.addEventListener('click', function () {
-  //     let category = this.parentElement.querySelector('.description');
-  //     category.classList.toggle('checked');
-  //   });
-  // }
   categories.forEach(function (category) {
     let checkbox = category.querySelector('.checkbox')
     checkbox.addEventListener('click', function () {
