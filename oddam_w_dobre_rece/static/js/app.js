@@ -256,21 +256,20 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
+
   let categories = Array.from(document.querySelectorAll('.category'));
   categories.forEach(function (category) {
     let checkbox = category.querySelector('.checkbox')
     checkbox.addEventListener('click', function () {
-      this.parentElement.querySelector('.description').classList.toggle('checked')
+      this.parentElement.querySelector('.description').classList.toggle('checkedDonation')
     })
-
   })
 
-  let selected = [];
   const nextButton = document.getElementById('step-after-categories');
 
   nextButton.addEventListener('click', function () {
-    let checks = document.getElementsByClassName('checked');
-    selected = Array.from(checks).map(check => check.dataset.category);
+    let checks = document.getElementsByClassName('checkedDonation');
+    let selected = Array.from(checks).map(check => check.dataset.category);
 
     let categoriesId = document.getElementsByClassName('title');
     Array.from(categoriesId).forEach(categoryId => {
@@ -285,7 +284,131 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
+  const instCheckbox = document.getElementsByClassName('radio')
+  Array.from(instCheckbox).forEach(checkbox => {
+    checkbox.addEventListener('click', function () {
+      checkbox.classList.toggle('checkedInstitution')
+    })
+  })
 
+  const summary = document.getElementById('summary')
+  summary.addEventListener('click', function () {
+
+
+    const donation = document.getElementsByClassName('checkedDonation');
+    const donationName = Array.from(donation).map(donation => donation.dataset.catname);
+    const bagsInput = document.querySelector('input[name="bags"]').value;
+    const selectedInstitution = document.querySelector('span.checkedInstitution');
+    const selectedInstType = selectedInstitution.dataset.type;
+    const selectedInstName = selectedInstitution.dataset.name;
+    console.log('selectedInstType & name : ', selectedInstType, selectedInstName);
+    const streetInput = document.querySelector('input[name="address"]');
+    const cityInput = document.querySelector('input[name="city"]');
+    const zipCodeInput = document.querySelector('input[name="postcode"]');
+    const phoneInput = document.querySelector('input[name="phone"]');
+    const dateInput = document.querySelector('input[name="data"]');
+    const timeInput = document.querySelector('input[name="time"]');
+    const commentInput = document.querySelector('textarea[name="more_info"]');
+    const step5div = document.querySelector('div[data-step="5"]');
+
+    const summaryDiv = document.createElement('div');
+    summaryDiv.className = 'summary';
+
+    const formSection1 = document.createElement('div');
+    formSection1.className = 'form-section';
+
+    const h4Element1 = document.createElement('h4');
+    h4Element1.textContent = 'Oddajesz:';
+
+    const ulElement1 = document.createElement('ul');
+
+    const liElement1 = document.createElement('li');
+    const icon1 = document.createElement('span');
+    icon1.className = 'icon icon-bag';
+    const summaryText1 = document.createElement('span');
+    summaryText1.className = 'summary--text';
+    summaryText1.textContent = `${bagsInput} worki, ${donationName}`;
+    liElement1.appendChild(icon1);
+    liElement1.appendChild(summaryText1);
+
+    const liElement2 = document.createElement('li');
+    const icon2 = document.createElement('span');
+    icon2.className = 'icon icon-hand';
+    const summaryText2 = document.createElement('span');
+    summaryText2.className = 'summary--text';
+    summaryText2.textContent = `Dla ${selectedInstType} "${selectedInstName}" `;
+    liElement2.appendChild(icon2);
+    liElement2.appendChild(summaryText2);
+
+    ulElement1.appendChild(liElement1);
+    ulElement1.appendChild(liElement2);
+
+    formSection1.appendChild(h4Element1);
+    formSection1.appendChild(ulElement1);
+
+    const formSection2 = document.createElement('div');
+    formSection2.className = 'form-section form-section--columns';
+
+    const column1 = document.createElement('div');
+    column1.className = 'form-section--column';
+
+    const h4Element2 = document.createElement('h4');
+    h4Element2.textContent = 'Adres odbioru:';
+
+    const ulElement2 = document.createElement('ul');
+
+    const liElement3 = document.createElement('li');
+    liElement3.textContent = `${streetInput.value}`;
+
+    const liElement4 = document.createElement('li');
+    liElement4.textContent = `${cityInput.value}`;
+
+    const liElement5 = document.createElement('li');
+    liElement5.textContent = `${zipCodeInput.value}`;
+
+    const liElement6 = document.createElement('li');
+    liElement6.textContent = `${phoneInput.value}`;
+
+    ulElement2.appendChild(liElement3);
+    ulElement2.appendChild(liElement4);
+    ulElement2.appendChild(liElement5);
+    ulElement2.appendChild(liElement6);
+
+    column1.appendChild(h4Element2);
+    column1.appendChild(ulElement2);
+
+    const column2 = document.createElement('div');
+    column2.className = 'form-section--column';
+
+    const h4Element3 = document.createElement('h4');
+    h4Element3.textContent = 'Termin odbioru:';
+
+    const ulElement3 = document.createElement('ul');
+
+    const liElement7 = document.createElement('li');
+    liElement7.textContent = `${dateInput.value}`;
+
+    const liElement8 = document.createElement('li');
+    liElement8.textContent = `${timeInput.value}`;
+
+    const liElement9 = document.createElement('li');
+    liElement9.textContent = `${commentInput.value}`;
+
+    ulElement3.appendChild(liElement7);
+    ulElement3.appendChild(liElement8);
+    ulElement3.appendChild(liElement9);
+
+    column2.appendChild(h4Element3);
+    column2.appendChild(ulElement3);
+
+    formSection2.appendChild(column1);
+    formSection2.appendChild(column2);
+
+    summaryDiv.appendChild(formSection1);
+    summaryDiv.appendChild(formSection2);
+
+    step5div.appendChild(summaryDiv);
+    })
 
 
 
