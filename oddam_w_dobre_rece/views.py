@@ -18,13 +18,16 @@ class LandingPage(View):
         context = {'total_quantity': total_quantity,
                    'total_supported_institutions': total_supported_institutions,
                    'institutions': institutions}
-        return render(request, 'index.html', context)
+        response = render(request, 'index.html', context)
+        # response.set_cookie('data', 'false')
+        return response
 
 
 class AddDonation(LoginRequiredMixin, View):
     def get(self, request):
         context = {'categories': Category.objects.all(),
                    'institutions': Institution.objects.all()}
+
         return render(request, 'form.html', context)
 
 
@@ -74,3 +77,36 @@ class Register(View):
 class FormConfirmation(View):
     def get(self, request):
         return render(request, 'form-confirmation.html')
+        # return redirect('index')
+
+    def post(self, request):
+        quantity = request.POST['bags']
+        quantity = int(quantity)
+        categories = request.POST.getlist('categories')
+        categories = [int(category) for category in categories]
+        institution = request.POST['organization']
+        institution = int(institution)
+        address = request.POST['address']
+        phone_number = request.POST['phone']
+        city = request.POST['city']
+        zip_code = request.POST['postcode']
+        pick_up_date = request.POST['data']
+        pick_up_time = request.POST['time']
+        pick_up_comment = request.POST['more_info']
+        user = request.user
+        donation = Donation(quantity=quantity,
+                            # categories=categories,
+                            institution=Institution.objects.get(pk=institution),
+                            address=address,
+                            phone_number=phone_number,
+                            city=city,
+                            zip_code=zip_code,
+                            pick_up_date=pick_up_date,
+                            pick_up_time=pick_up_time,
+                            pick_up_comment=pick_up_comment,
+                            user=user)
+        donation.save()
+        categories = [Category.objects.get(pk=category) for category in categories]
+        donation.categories.set(categories)
+        return render(request, 'form-confirmation.html')
+

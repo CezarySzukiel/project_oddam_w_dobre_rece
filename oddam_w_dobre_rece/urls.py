@@ -19,6 +19,7 @@ from django.urls import path
 from oddam_w_dobre_rece import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls, name='admin-site'), #todo dlaczego nie mogę dodać {% url 'admin-site' %} do base.html?
     path('', views.LandingPage.as_view(), name='index'),
     path('adddonation/', views.AddDonation.as_view(), name='addDonation'),
     path('login/', views.Login.as_view(), name='login'),

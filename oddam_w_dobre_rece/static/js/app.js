@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * TODO: validation, send data to server
      */
     submit(e) {
-      e.preventDefault();
+      // e.preventDefault();
       this.currentStep++;
       this.updateForm();
     }
@@ -294,14 +294,12 @@ document.addEventListener("DOMContentLoaded", function() {
   const summary = document.getElementById('summary')
   summary.addEventListener('click', function () {
 
-
     const donation = document.getElementsByClassName('checkedDonation');
     const donationName = Array.from(donation).map(donation => donation.dataset.catname);
     const bagsInput = document.querySelector('input[name="bags"]').value;
     const selectedInstitution = document.querySelector('span.checkedInstitution');
     const selectedInstType = selectedInstitution.dataset.type;
     const selectedInstName = selectedInstitution.dataset.name;
-    console.log('selectedInstType & name : ', selectedInstType, selectedInstName);
     const streetInput = document.querySelector('input[name="address"]');
     const cityInput = document.querySelector('input[name="city"]');
     const zipCodeInput = document.querySelector('input[name="postcode"]');
@@ -409,7 +407,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     step5div.appendChild(summaryDiv);
     })
-
 
 
 });
