@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Profile
+{% endblock %}
+{% block header %}
+      <div class="slogan container container--90">
+        <div class="slogan--item">
+          <h1>
+            Użytkownik: {{ user.username }}<br>
+              Imię: {{ user.first_name }}<br>
+              Nazwisko: {{ user.last_name }}<br>
+              Email: {{ user.email }}
+          </h1>
+            <h2>
+            Przekazane dary:<br>
+              <ul class="no-bullets">
+                {% for donation in donations %}
+                  <li>
+                    {% if donation.is_taken %}
+                      <span style="color: rgba(122,122,122,0.6);">
+                          {{ donation.quantity }} worek
+                          {% for category in donation.categories.all %}
+                              {{ category }}
+                          {% endfor %}
+                          <br>
+                          dla {{ donation.institution.type }} {{ donation.institution.name }}<br>
+                          {{ donation.pick_up_date }} o godzinie {{ donation.pick_up_time }}<br>
+                      </span><br>
+                    {% else %}
+                        {{ donation.quantity }} worek
+                        {% for category in donation.categories.all %}
+                            {{ category }}
+                        {% endfor %}
+                        <br>
+                        dla {{ donation.institution.type }} {{ donation.institution.name }}<br>
+                        {{ donation.pick_up_date }} o godzinie {{ donation.pick_up_time }}<br>
+                        <form method="post" action="{% url 'profile' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="donation_id" value="{{ donation.id }}">
+                            <button type="submit">Odebrano</button><br>
+                        </form>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </h2>
+        </div>
+      </div>
+
+{% endblock %}

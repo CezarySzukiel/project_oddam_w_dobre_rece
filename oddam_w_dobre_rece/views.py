@@ -1,7 +1,7 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegisterForm, LoginForm
@@ -109,4 +109,20 @@ class FormConfirmation(View):
         categories = [Category.objects.get(pk=category) for category in categories]
         donation.categories.set(categories)
         return render(request, 'form-confirmation.html')
+
+
+class Profile(View):
+    def get(self, request):
+        donations = Donation.objects.filter(user=request.user).order_by(F('is_taken').asc(),
+                                                                        'pick_up_date',
+                                                                        'pick_up_time'
+                                                                        )
+        return render(request, 'user-profile.html', {'donations': donations})
+
+    def post(self, request):
+        donation_id = request.POST['donation_id']
+        donation = Donation.objects.get(pk=donation_id)
+        donation.is_taken = True
+        donation.save()
+        return redirect('profile')
 
