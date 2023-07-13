@@ -1,3 +1,5 @@
+from datetime import date, time, datetime
+
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -5,6 +7,9 @@ from django.db.models import Sum, F
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegisterForm, LoginForm
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 from oddam_w_dobre_rece.models import Donation, Institution, Category
 
@@ -70,6 +75,14 @@ class Register(View):
                                             email=email,
                                             username=email)
             user.save()
+            # _______________register confirmation on mail____________________
+            token = user.auth_token.key
+            subject = 'Potwierdzenie rejestracji'
+            html_message = render_to_string('register-confirmation-email.html', {'user': user, 'token': token}) #todo sprawdzić to wszystko jak to ma działać, może wyszukaćna forum?
+            plain_message = strip_tags(html_message)
+            send_mail(subject, plain_message, 'cezary.gra2@gmail.com', [user.email], html_message=html_message)
+
+            # __________________________________________________________________
             return redirect('login')
         return render(request, 'register.html', {'form': form})
 
@@ -113,16 +126,19 @@ class FormConfirmation(View):
 
 class Profile(View):
     def get(self, request):
-        donations = Donation.objects.filter(user=request.user).order_by(F('is_taken').asc(),
-                                                                        'pick_up_date',
-                                                                        'pick_up_time'
-                                                                        )
+        donations = Donation.objects.filter(user=request.user).order_by(F('is_taken').asc(), 'id')
         return render(request, 'user-profile.html', {'donations': donations})
 
     def post(self, request):
         donation_id = request.POST['donation_id']
         donation = Donation.objects.get(pk=donation_id)
         donation.is_taken = True
+        donation.pick_up_date = date.today()
+        donation.pick_up_time = datetime.now().time()
         donation.save()
         return redirect('profile')
 
+
+class RegisterConfirmation(View):
+    def get(self, request):
+        return render(request, 'register-confirmation.html')
