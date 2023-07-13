@@ -95,7 +95,6 @@ class FormConfirmation(View):
         pick_up_comment = request.POST['more_info']
         user = request.user
         donation = Donation(quantity=quantity,
-                            # categories=categories,
                             institution=Institution.objects.get(pk=institution),
                             address=address,
                             phone_number=phone_number,
