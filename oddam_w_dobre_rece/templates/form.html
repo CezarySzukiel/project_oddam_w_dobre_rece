@@ -111,7 +111,7 @@
 
           <!-- STEP 3 -->
           <div data-step="3">
-            <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+            <h3>Wybierz organizację, której chcesz pomóc:</h3>
             {% for inst in institutions %}
                 <div class="institution">
                     <div class="form-group form-group--checkbox">
@@ -120,7 +120,7 @@
                         <span class="checkbox radio" data-name="{{ inst.name }}" data-type="{{ inst.type }}"></span>
                         <span class="description">
                           <div class="title" data-categories="{%for cat in inst.categories.all%}{{ cat.id }} {% endfor %}">
-                              {{ inst.type }} “{{ inst }}”
+                              {{ inst.type }} “{{ inst }}
                           </div>
 
                           <div class="subtitle">

@@ -269,18 +269,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
   nextButton.addEventListener('click', function () {
     let checks = document.getElementsByClassName('checkedDonation');
-    let selected = Array.from(checks).map(check => check.dataset.category);
-
+    let selectedCategories = Array.from(checks).map(check => check.dataset.category);
     let categoriesId = document.getElementsByClassName('title');
     Array.from(categoriesId).forEach(categoryId => {
-      let ids = categoryId.dataset.categories;
-
-      selected.forEach(selectedId => {
-        if (!ids.includes(selectedId)) {
-          let hidden = categoryId.parentElement.parentElement.parentElement.parentElement;
-          hidden.style.display = 'none';
-        }
-      });
+      let ids = categoryId.dataset.categories.trim().split(' ')
+      let institutionDiv = categoryId.parentElement.parentElement.parentElement.parentElement;
+      if (checks.length < 1) {
+        institutionDiv.style.display = 'block';
+      }
+      else if (selectedCategories.every(id => ids.includes(id))) {
+        institutionDiv.style.display = 'block';
+      }
+      else {
+        institutionDiv.style.display = 'none';
+      }
     });
   });
 

@@ -77,7 +77,6 @@ class Register(View):
 class FormConfirmation(View):
     def get(self, request):
         return render(request, 'form-confirmation.html')
-        # return redirect('index')
 
     def post(self, request):
         quantity = request.POST['bags']
